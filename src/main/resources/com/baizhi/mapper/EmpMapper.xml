@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.EmpDAO" >
+  <resultMap id="BaseResultMap" type="com.baizhi.entity.Emp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="salary" property="salary" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, username, realname, password, sex, age, salary
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from emp
+    where username=#{username}
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from emp
+    where id=#{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from emp
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from emp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.baizhi.entity.Emp" >
+    insert into emp (id, username, realname, 
+      password, sex, age, 
+      salary)
+    values (0, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+      #{salary,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insert2" parameterType="com.baizhi.entity.Emp" >
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.baizhi.entity.Emp" >
+    update emp
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Emp" >
+    update emp
+    set username = #{username,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      salary = #{salary,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
