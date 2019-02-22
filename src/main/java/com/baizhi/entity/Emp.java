@@ -24,6 +24,8 @@ public class Emp implements Serializable {
     private Double salary;
 
     public void test() {
+
         System.out.println(123);
+        System.out.println(456);
     }
 }
